@@ -2,6 +2,7 @@ import webpack from 'webpack'
 import cssnano from 'cssnano'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import FlowStatusWebpackPlugin from 'flow-status-webpack-plugin'
 import config from '../config'
 import _debug from 'debug'
 
@@ -75,7 +76,8 @@ if (__DEV__) {
       compress: {
         unused: true,
         dead_code: true,
-        warnings: false
+        warnings:  false,
+        screw_ie8: true
       }
     })
   )
@@ -83,6 +85,7 @@ if (__DEV__) {
 
 // Don't split bundles during testing, since we only want import one bundle
 if (!__TEST__) {
+  debug('Enable plugins for bundle chunking.')
   webpackConfig.plugins.push(
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor']
@@ -167,6 +170,7 @@ if (isUsingCSSModules) {
     'localIdentName=[name]__[local]___[hash:base64:5]'
   ].join('&')
 
+  debug('Enable SASS loader.')
   webpackConfig.module.loaders.push({
     test: /\.scss$/,
     include: cssModulesRegex,
@@ -178,6 +182,7 @@ if (isUsingCSSModules) {
     ]
   })
 
+  debug('Enable CSS loader.')
   webpackConfig.module.loaders.push({
     test: /\.css$/,
     include: cssModulesRegex,
@@ -238,6 +243,7 @@ webpackConfig.postcss = [
 
 // File loaders
 /* eslint-disable */
+debug('Enable font/image loaders.')
 webpackConfig.module.loaders.push(
   { test: /\.woff(\?.*)?$/,  loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff' },
   { test: /\.woff2(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2' },

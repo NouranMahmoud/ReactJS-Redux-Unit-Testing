@@ -26,13 +26,5 @@ describe('(Component) Header', () => {
         </IndexLink>
       )).to.be.true
     })
-
-    it('Should render a Link to Counter route', () => {
-      expect(_wrapper.contains(
-        <Link activeClassName={classes.activeRoute} to='/counter'>
-          Counter
-        </Link>
-      )).to.be.true
-    })
   })
 })

@@ -1,29 +1,167 @@
 {
   "parser"  : "babel-eslint",
   "extends" : [
+    "eslint:recommended",
     "standard",
     "standard-react"
   ],
   "plugins": [
     "babel",
     "react",
-    "promise"
+    "flow-vars",
+    "flowtype",
   ],
   "env"     : {
-    "browser" : true
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "mocha": true,
+    "phantomjs": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    },
+    "sourceType": "module"
+  },
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
+    }
   },
   "globals" : {
     "__DEV__"      : false,
     "__PROD__"     : false,
     "__DEBUG__"    : false,
+    "__TEST__":     false,
+    "__RECORD__":   false,
+    "__MOCK__":     false,
+    "__mockData__": false,
     "__COVERAGE__" : false,
     "__BASENAME__" : false
   },
   "rules": {
-    "semi" : [2, "never"],
+    "no-console": 0,
+    "semi": [
+      "warn",
+      "never"
+    ],
+    "space-infix-ops": 0,
+    "new-cap": 0,
+    "strict": 0,
+    "no-underscore-dangle": 0,
+    "no-use-before-define": 0,
+    "no-useless-escape": 1,
+    "no-useless-computed-key": 1,
+    "no-empty": 1,
+    "no-multi-spaces": [
+      "error",
+      {
+        "exceptions": {
+          "Property": true,
+          "VariableDeclarator": true,
+          "ImportDeclaration": true
+        }
+      }
+    ],
+    "no-unused-vars": [
+      "warn",
+      {
+        "varsIgnorePattern": "(_decc||_value)"
+      }
+    ],
+    "eol-last": 0,
+    "quotes": [
+      0,
+      "single"
+    ],
+    "jsx-quotes": 1,
     "max-len": [2, 120, 2],
     "generator-star-spacing": 0,
     "babel/generator-star-spacing": 1,
-    "jsx-quotes": [2, "prefer-single"]
+    "key-spacing": [
+      "error",
+      {
+        "singleLine": {
+          "beforeColon": false,
+          "afterColon": true
+        },
+        "multiLine": {
+          "beforeColon": false,
+          "afterColon": true,
+          "align": "value"
+        }
+      }
+    ],
+    "indent": [
+      2,
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "one-var": [
+      "error",
+      {
+        "uninitialized": "always",
+        "initialized": "never"
+      }
+    ],
+    "brace-style": [
+      "error", "stroustrup"
+    ],
+    "flow-vars/define-flow-type": 1,
+    "flow-vars/use-flow-type": 1,
+    "flowtype/require-parameter-type": 1,
+    "flowtype/require-return-type": [
+      1,
+      "always",
+      {
+        "annotateUndefined": "never"
+      }
+    ],
+    "flowtype/space-after-type-colon": [
+      1,
+      "never"
+    ],
+    "flowtype/space-before-type-colon": [
+      1,
+      "never"
+    ],
+    "flowtype/type-id-match": [
+      1,
+      "^([A-Z][a-z0-9]+)+Type$"
+    ],
+    "react/jsx-no-undef": 1,
+    "react/jsx-no-bind": [
+      0
+    ],
+    "react/jsx-space-before-closing": 0,
+    "react/jsx-uses-react": 1,
+    "react/jsx-uses-vars": 1,
+
+    "react/jsx-indent-props": [0, 2],
+    "react/no-did-mount-set-state": 1,
+    "react/no-did-update-set-state": 1,
+    "react/no-multi-comp": [2, {
+      "ignoreStateless": true
+    }],
+    "react/no-unknown-property": 1,
+    "react/prop-types": 2,
+    "react/react-in-jsx-scope": 1,
+    "react/self-closing-comp": 1,
+    "react/sort-prop-types": 2,
+    "space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "always",
+        "named":     "never"
+      }
+    ]
+
+    // Silly rules
+    //  "react/no-multi-comp": 1, This discourages refactoring complex components into smaller parts.
   }
 }
