@@ -6,6 +6,8 @@ import makeRootReducer from './reducers'
 export default (initialState = {}, history) => {
   // ======================================================
   // Middleware Configuration
+  // Order of middleware seems to be important here:
+  // https://github.com/acdlite/redux-router/issues/87
   // ======================================================
   const middleware = [thunk, routerMiddleware(history)]
 
@@ -31,6 +33,9 @@ export default (initialState = {}, history) => {
       ...enhancers
     )
   )
+
+  // Described by Dan Abramov here: http://stackoverflow.com/a/33044701
+  // to dynamically add route-specific JS/CSS/etc. See ./reducers.js
   store.asyncReducers = {}
 
   if (module.hot) {

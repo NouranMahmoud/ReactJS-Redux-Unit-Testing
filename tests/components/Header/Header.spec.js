@@ -10,20 +10,28 @@ describe('(Component) Header', () => {
   beforeEach(() => {
     _wrapper = shallow(<Header/>)
   })
-
+ 
   it('Renders a welcome message', () => {
     const welcome = _wrapper.find('h1')
     expect(welcome).to.exist
-    expect(welcome.text()).to.match(/React Redux Starter Kit/)
+    expect(welcome.text()).to.match(/React Redux Unit Testing/)
   })
 
   describe('Navigation links...', () => {
 
-    it('Should render a Link to Home route', () => {
+    it('Should render an IndexLink to Home route', () => {
       expect(_wrapper.contains(
         <IndexLink activeClassName={classes.activeRoute} to='/'>
           Home
         </IndexLink>
+      )).to.be.true
+    })
+ 
+    it('Should render a Link to Aphorism route', () => {
+      expect(_wrapper.contains(
+        <Link activeClassName={classes.activeRoute} to='/aphorisms'>
+          Comp Sci Truth
+        </Link>
       )).to.be.true
     })
   })

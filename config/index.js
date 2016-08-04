@@ -46,6 +46,8 @@ const config = {
   },
   compiler_vendor : [
     'babel-polyfill',
+    'url',
+    'debug',
     'history',
     'react',
     'react-redux',
@@ -78,13 +80,15 @@ Edit at Your Own Risk
 // N.B.: globals added here must _also_ be added to .eslintrc
 config.globals = {
   'process.env'  : {
-    'NODE_ENV' : JSON.stringify(config.env)
+    'NODE_ENV' : JSON.stringify(config.env),
+    'DEBUG' : JSON.stringify(config.debug)
   },
   'NODE_ENV'     : config.env,
   '__DEV__'      : config.env === 'development',
+  '__DEBUG__'    : config.env === 'development' && !argv.no_debug,
   '__PROD__'     : config.env === 'production',
   '__TEST__'     : config.env === 'test',
-  '__DEBUG__'    : config.env === 'development' && !argv.no_debug,
+  '__MOCK__'     : config.env === 'test' && !argv.record && !argv.no_mock,
   '__COVERAGE__' : !argv.watch && config.env === 'test',
   '__BASENAME__' : JSON.stringify(process.env.BASENAME || '')
 }

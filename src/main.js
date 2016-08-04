@@ -1,10 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
-import { useRouterHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
+import {useRouterHistory} from 'react-router'
+import {syncHistoryWithStore} from 'react-router-redux'
 import createStore from './store/createStore'
 import AppContainer from './containers/AppContainer'
+import _debug from 'debug'
+import { systemErrorInitialState } from 'components/SystemError'
+
+_debug.enable(process.env.DEBUG)
 
 // ========================================================
 // Browser History Setup
@@ -20,7 +24,10 @@ const browserHistory = useRouterHistory(createBrowserHistory)({
 // react-router-redux reducer under the routerKey "router" in src/routes/index.js,
 // so we need to provide a custom `selectLocationState` to inform
 // react-router-redux of its location.
-const initialState = window.___INITIAL_STATE__
+const initialState = {
+  // router:      window.___INITIAL_STATE__,
+  systemError: systemErrorInitialState
+}
 const store = createStore(initialState, browserHistory)
 const history = syncHistoryWithStore(browserHistory, store, {
   selectLocationState: (state) => state.router
@@ -34,20 +41,26 @@ if (__DEBUG__) {
     window.devToolsExtension.open()
   }
 }
+window.onerror = function (errorMsg, url, lineNumber, columnNumber, errorObject) {
+  if (errorObject && /<omitted>/.test(errorMsg)) {
+    console.error('Full exception message: ' + errorObject.message)
+  }
+}
 
 // ========================================================
 // Render Setup
 // ========================================================
 const MOUNT_NODE = document.getElementById('root')
 
-let render = () => {
-  const routes = require('./routes/index').default(store)
+let render = (routerKey = null) => {
+  const createRoutes = require('./routes/index').default(store)
 
   ReactDOM.render(
     <AppContainer
       store={store}
       history={history}
-      routes={routes}
+      routes={createRoutes}
+      routerKey={routerKey}
     />,
     MOUNT_NODE
   )
@@ -68,7 +81,8 @@ if (__DEV__) {
     render = () => {
       try {
         renderApp()
-      } catch (error) {
+      }
+      catch (error) {
         renderError(error)
       }
     }
