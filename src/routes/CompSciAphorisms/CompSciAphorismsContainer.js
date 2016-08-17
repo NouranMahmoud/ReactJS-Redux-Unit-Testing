@@ -21,8 +21,8 @@ const mapStateToProps = (state:Object):MapToAnyType => {
   }
 }
 
-const mapActionCreators:{enlighten: Function} = {
+const mapDispatchToProps:{enlighten: Function} = {
   enlighten
 }
 
-export default connect(mapStateToProps, mapActionCreators)(CompSciAphorisms)
+export default connect(mapStateToProps, mapDispatchToProps)(CompSciAphorisms)
