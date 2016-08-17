@@ -6,10 +6,5 @@ node_modules
 dist
 coverage
 
-*.git
-
 .idea/
-/.idea/
-/ReactJS-Redux-Unit-Testing.iml
-npm-debug.log.*
-tests/reusable/
+*.iml
