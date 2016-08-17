@@ -1,12 +1,6 @@
 Changelog
 =========
 
-|                  |                        |
-|:-----------------|:-----------------------|
-| Full Name        | Gregory J. Kedge       |
-| Current Location | Centreville, VA, 20120 |
-|                  |                        |
-
 3.0.0-alpha.0
 -------------
 
