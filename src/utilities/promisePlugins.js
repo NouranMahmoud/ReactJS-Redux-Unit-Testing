@@ -30,7 +30,30 @@ export const promiseTime:Function = (fn:Function):Function => {
 (function (Promise:Function /* Strange, but true... according to Flow */) {
   "use strict"
 
-  // This function cannot(!) be a 'this'-binding () ==> {}
+  /**
+   * Promise.spread will internally deconstruct the array that Promise.all
+   * returns into an ordered list of result arguments:
+   *
+   * Promise.spread([getProduct('p1'), getProduct('p2'), getProduct('p3')])
+   *       .then((p1, p2, p3) => {
+   *           console.log(p1, p2, p3);
+   *        });
+   *
+   * Probably way better to avoid adding to the standard Promise prototype
+   * by leveraging the array destructing:
+   * 
+   * Promise.all([getProduct('p1'), getProduct('p2'), getProduct('p3')])
+   *       .then(([p1, p2, p3]) => {
+   *           console.log(p1, p2, p3);
+   *        });
+   *
+   * This function cannot(!) be a 'this'-binding () ==> {}
+   * 
+   * @param promises set of all promises to run in parallel.
+   * @param fulfilled
+   * @param rejected
+   * @returns {*|Promise}
+   */
   Promise.spread = function (promises:Array, fulfilled:Function, rejected:?Function):Promise {
     return Promise.all(promises).spread(fulfilled, rejected)
   }
