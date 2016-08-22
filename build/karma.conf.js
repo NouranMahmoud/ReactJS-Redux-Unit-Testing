@@ -37,8 +37,8 @@ const karmaConfig = {
     output:        'full', // 'autowatch'
     ignoreSkipped: true,
     colors:        {
-      success: 'blue',
-      info:    'green',
+      success: 'green',
+      info:    'gray',
       warning: 'cyan',
       error:   'red'
     }
@@ -84,7 +84,7 @@ const karmaConfig = {
   retryLimit:               4,
   browserComment_0:         'karma may not wait long enough for Chrome to start prior to retrying.',
   browserComment_1:         'https://github.com/karma-runner/karma/issues/2116',
-  browsers:                 [ /* 'SlimerJS', 'Chrome', 'IE', 'PhantomJS' */ 'Firefox'],
+  browsers:                 [ /* 'SlimerJS', 'Chrome', 'IE',  */ 'PhantomJS', 'Firefox'],
   webpack:                  {
     devtool:    'cheap-module-source-map',
     resolve:    {
